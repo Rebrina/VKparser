@@ -53,18 +53,14 @@ def get_result(user_groups_list):
 
 def get_file(user):
     user_groups_list = user_groups(user)
-
     friends_list_id = user_friends(user)
-
     for friend in tqdm(friends_list_id):
         try:
             friend_group_list = user_groups(friend)
         except KeyError:
             friend_group_set = {}
         user_groups_list = list(set(user_groups_list) - set(friend_group_list))
-
     result = get_result(user_groups_list)
-
     with open('groups.json', 'w') as f:
         json.dump(result, f)
 
